@@ -1,28 +1,34 @@
-name: Auto Login
+name: Auto_Login
 
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
   schedule:
     - cron: '0 0 1 * *' # 每月1号0点（UTC时间）
     - cron: '0 0 15 * *' # 每月15号0点（UTC时间）
-  workflow_dispatch: # 允许手动触发
 
 jobs:
   login:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20.x'
-
-      - name: Install Puppeteer
+    steps:  
+      - name: Checkout repository  
+        uses: actions/checkout@v3  
+  
+      - name: Set up Node.js  
+        uses: actions/setup-node@v3  
+        with:  
+          node-version: '20.x'  
+  
+      - name: Install dependencies  
         run: npm install puppeteer
 
-      - name: Run login script
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Puppeteer script
         env:
           ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
         run: node login.js
