@@ -12,19 +12,22 @@ jobs:
   login:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    steps:  
+      - name: Checkout repository  
+        uses: actions/checkout@v3  
+  
+      - name: Set up Node.js  
+        uses: actions/setup-node@v3  
+        with:  
+          node-version: '20.x'  
+  
+      - name: Install dependencies  
+        run: npm install puppeteer
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '20'
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run Puppeteer script
-      env:
-        ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
-      run: node login.js
+      - name: Run Puppeteer script
+        env:
+          ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
+        run: node login.js
