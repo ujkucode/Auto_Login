@@ -1,4 +1,4 @@
-name: Login Script
+name: Auto_Login
 
 on:
   workflow_dispatch:
